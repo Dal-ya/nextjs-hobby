@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import { chunk, includes, shuffle, take, tail } from "lodash";
-import useLayoutEffect from '../../hooks/use-isomorphic-layout-effect';
+import useLayoutEffect from "../../hooks/use-isomorphic-layout-effect";
 
 export default function Tournament({ items = [] }) {
   const [itemList, setItemList] = useState([]); // 모든 아이템 리스트
@@ -106,7 +107,7 @@ export default function Tournament({ items = [] }) {
           {!isGameStart && !finalWinner && (
             <div>
               <h4 className="pt-8 text-center text-slate-900
-                           text-xl font-semibold"
+                             text-xl font-semibold"
               >
                 라운드를 선택하세요
               </h4>
@@ -115,12 +116,12 @@ export default function Tournament({ items = [] }) {
                   <div key={round}
                        onClick={() => initTournament(round)}
                        className="group p-1.5 w-1/2 mx-auto border border-solid
-                                border-slate-900 rounded-md overflow-hidden
-                                hover:bg-sky-500 hover:ring-sky-500
-                                cursor-pointer"
+                                  border-slate-900 rounded-md overflow-hidden
+                                  hover:bg-sky-500 hover:ring-sky-500
+                                  cursor-pointer"
                   >
                     <p className="text-center
-                                group-hover:text-white"
+                                  group-hover:text-white"
                     >
                       Round {round}
                     </p>
@@ -133,7 +134,10 @@ export default function Tournament({ items = [] }) {
 
         <div>
           {isGameStart && (
-            <div>
+            <div className="mt-4 text-center font-semibold text-xl bg-slate-700
+                            text-white rounded-sm"
+
+            >
               {currentRound === 2 ?
                 <div>Final</div> :
                 <div>
@@ -147,14 +151,35 @@ export default function Tournament({ items = [] }) {
         <div>
           {isGameStart && (tournamentList.length > 0) && (
             <div>
-              <div>
-                <div
-                  onClick={() => (enterWinners(tournamentList[0][0]))}>
-                  {tournamentList[0][0].title}
+              <div className="pt-2">
+                <div className=""
+                     onClick={() => (enterWinners(tournamentList[0][0]))}
+                >
+                  <div className="text-center font-semibold border-solid
+                                  border-b-blue-100 border-2"
+                  >
+                    {tournamentList[0][0].title}
+                  </div>
+                  <Image className="rounded-sm"
+                         src={tournamentList[0][0].img}
+                         width={300}
+                         height={200}
+                         layout={'responsive'}
+                  />
                 </div>
-                <div
-                  onClick={() => (enterWinners(tournamentList[0][1]))}>
-                  {tournamentList[0][1].title}
+                <div className="mt-2"
+                     onClick={() => (enterWinners(tournamentList[0][1]))}
+                >
+                  <Image className="rounded-sm"
+                         src={tournamentList[0][1].img}
+                         width={300}
+                         height={200}
+                         layout={'responsive'}/>
+                  <div className="text-center font-semibold border-solid
+                                  border-b-blue-100 border-2"
+                  >
+                    {tournamentList[0][1].title}
+                  </div>
                 </div>
               </div>
             </div>
@@ -164,8 +189,26 @@ export default function Tournament({ items = [] }) {
         <div>
           {finalWinner && (
             <div>
-              <div>win: {finalWinner.title}</div>
-              <button onClick={retryTournament}>retry</button>
+              <div className="bg-slate-700 text-white text-center text-xl
+                              rounded-sm mt-4 p-2"
+              >
+                Win {finalWinner.title} 👑
+              </div>
+              <div>
+                <Image src={finalWinner.img}
+                       width={300}
+                       height={200}
+                       layout={'responsive'}
+                />
+              </div>
+              <div>
+                <div className="mx-auto mt-4 p-2 w-32 border-2 border-slate-400
+                                shadow-sm text-center rounded-md cursor-pointer"
+                     onClick={retryTournament}
+                >
+                  다시하기
+                </div>
+              </div>
             </div>
           )}
         </div>
