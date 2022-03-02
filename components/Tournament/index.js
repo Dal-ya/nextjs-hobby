@@ -150,7 +150,7 @@ export default function Tournament({ items = [] }) {
 
         <div>
           {isGameStart && (tournamentList.length > 0) && (
-            <div>
+            <div className="relative">
               <div className="pt-2">
                 <div className=""
                      onClick={() => (enterWinners(tournamentList[0][0]))}
@@ -167,6 +167,15 @@ export default function Tournament({ items = [] }) {
                          layout={'responsive'}
                   />
                 </div>
+
+                <div className="w-10 h-10 bg-amber-500 text-white font-bold
+                                text-center leading-8 rounded-full absolute
+                                z-10 top-1/2 left-1/2 translate-x-[-50%]
+                                translate-y-[-50%] border-2 border-gray-400"
+                >
+                  vs
+                </div>
+
                 <div className="mt-2"
                      onClick={() => (enterWinners(tournamentList[0][1]))}
                 >
