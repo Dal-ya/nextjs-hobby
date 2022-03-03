@@ -15,6 +15,8 @@ export default function Tournament({ items = [] }) {
   const [displayInfo, setDisplayInfo] = useState({}); // *강 */* 현재 몇 강인지 표시
   const [isGameStart, setIsGameStart] = useState(false); // 게임 시작 여부
 
+  const router = useRouter();
+
   const initTournament = round => {
     console.log("init tournament! round: ", round);
 
@@ -100,6 +102,14 @@ export default function Tournament({ items = [] }) {
     });
   }, [currentRound]);
 
+  useEffect(() => {
+    console.log("finalWinner: ", finalWinner);
+    if (finalWinner) {
+      retryTournament();
+      router.push(`/games/worldcup/results/${finalWinner.id}`);
+    }
+  }, [finalWinner]);
+
   return (
     <div>
       <div className="container">
@@ -164,7 +174,7 @@ export default function Tournament({ items = [] }) {
                          src={tournamentList[0][0].img}
                          width={300}
                          height={200}
-                         layout={'responsive'}
+                         layout={"responsive"}
                   />
                 </div>
 
@@ -183,7 +193,7 @@ export default function Tournament({ items = [] }) {
                          src={tournamentList[0][1].img}
                          width={300}
                          height={200}
-                         layout={'responsive'}/>
+                         layout={"responsive"} />
                   <div className="text-center font-semibold border-solid
                                   border-b-blue-100 border-2"
                   >
@@ -195,7 +205,7 @@ export default function Tournament({ items = [] }) {
           )}
         </div>
 
-        <div>
+        {/*<div>
           {finalWinner && (
             <div>
               <div className="bg-slate-700 text-white text-center text-xl
@@ -207,9 +217,10 @@ export default function Tournament({ items = [] }) {
                 <Image src={finalWinner.img}
                        width={300}
                        height={200}
-                       layout={'responsive'}
+                       layout={"responsive"}
                 />
               </div>
+
               <div>
                 <div className="mx-auto mt-4 p-2 w-32 border-2 border-slate-400
                                 shadow-sm text-center rounded-md cursor-pointer"
@@ -220,7 +231,7 @@ export default function Tournament({ items = [] }) {
               </div>
             </div>
           )}
-        </div>
+        </div>*/}
 
       </div>
     </div>
